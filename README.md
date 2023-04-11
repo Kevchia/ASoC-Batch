@@ -48,12 +48,12 @@ JohnDoe@test.com
 JamesBond@test.com
 ```
 
-Afterwards, use Option 5 to invite users. 
+Afterwards, use **Option 5** to invite users. 
 
 # How to delete users
 
-Use Option 6 to delete all users by role ID. 
+Use **Option 6** to delete all users by role ID. 
 
 # How to delete Asset Groups
 
-Use Option 7 to delete a selected asset group
+Use **Option 7** to delete a selected asset group
