@@ -18,13 +18,13 @@ This Powershell script allows you to <br>
 In order to use the script, there are some things you need to do.<br>
 
 1.Provide API Key and secret in config.json:
-
+```
 {
     "API_KEY": "YOUR ASOC API KEY",
     "API_SECRET": "YOUR ASOC API SECRET",
     "BASEURL": "https://cloud.appscan.com/api/V2"
 }
-
+```
 Note: If you are working with ASoC EU, change the BASEURL to "https://cloud.appscan.com/eu/api/V2"
 
 <br>
