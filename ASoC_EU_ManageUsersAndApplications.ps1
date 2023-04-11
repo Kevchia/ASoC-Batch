@@ -7,6 +7,7 @@
 #Required User supplied inputs
 $ASoC_API_Key = 'EDIT ME'
 $ASoC_API_Secret = 'EDIT ME'
+#test
 
 #EU Datacenter
 $baseURL = 'https://cloud.appscan.com/eu/api/V2'
