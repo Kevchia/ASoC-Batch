@@ -25,63 +25,26 @@ In order to use the script, there are some things you need to do.<br>
     "BASEURL": "https://cloud.appscan.com/api/V2"
 }
 ```
-*Note: If you are working with ASoC EU, change the BASEURL to "https://cloud.appscan.com/eu/api/V2"*
-
-<br>
-2. Point to the right Datacenter<br>
-The following example is EU Datacenter<br>
-
-```
-$baseURL = 'https://cloud.appscan.com/eu/api/V2'
-```
-
-Base URL for US Datacenter <br>
-
-```
-https://cloud.appscan.com/api/V2
-```
-
+*Note: If you are working with ASoC EU, change the BASEURL to 
+```"https://cloud.appscan.com/eu/api/V2"*```
 
 # How to Invite users
 
-1.Put all the emails in ASoC_UserInviteList.txt<br>
-Nextline for each emails<br>
-Example:<br>
+1.Put all the emails you want to invite in ASoC_UserInviteList.txt<br>
+Make sure each line contains only 1 email address<br>
+For example:<br>
 
 ```
 JohnDoe@test.com
 JamesBond@test.com
 ```
 
+Afterwards, use Option 5 to invite users. 
 
-2.Assign asset Groups (Line 415)<br>
-Enter your asset Group ID (Can retrieve from List Assist Group)<br>
+# How to delete users
 
-```
-Invite-Users -assetGroupId "6121ed15-202e-47ac-b3cc-14df0573c815" -roleId "fa39651a-b8b6-4094-ba29-b9ae94138d8f" -userFileName "ASoC_UserInviteList.txt"
-```
+Use option 6 to delete all users by role ID. 
 
-3.Assign user Group (Line 415)<br>
-Enter your RoleID (Can retrieve from ASoC)<br>
+# How to delete Asset Groups
 
-```
-Invite-Users -assetGroupId "6121ed15-202e-47ac-b3cc-14df0573c815" -roleId "fa39651a-b8b6-4094-ba29-b9ae94138d8f" -userFileName "ASoC_UserInviteList.txt"
-```
-# How to delete scans and users - clean workshop
-
-This function will delete all the scans in the specefic asset group and users
-
-
-1. Set Role Name (Line 433)<br>
-
-```
-Delete-Users -roleName "Student"
-``` 
-
-2.Set Asset Name (Line 435)<br>
-
-``` 
-Delete-Apps -assetGroupNameWhereAppsWillBeDeleted "AS_Innov_DAST_ASoC_NA_Oct13"
-```
-
-<b>Reminder: Clean Workshop function will delete the scans under the specefic asset and users!!!</b>
+Use option 7 to delete a selected asset group
