@@ -4,13 +4,14 @@ Modified by Kevin Chia. <br>
 <br>
 This Powershell script allows you to <br>
 <br>
-1.Check Current Token - Check your connection status with ASoC<br>
-2.List Current Users - List all the users on your ASoC<br>
-3.List Current Apps - List all Apps on your ASoC<br>
-4.List Assist Group - List all Assist Group on your ASoC<br>
-5.Invite Users - Invite the users from ASoC_UserInviteList.txt<br>
-6.Clean Up Workshop - Batch Delete the scans on specefic assist group<br>
-7.Get Counts  - Get application and user counts<br>
+1. Check Current Token - Check your connection status with ASoC
+2. List Current Users - List all the users on your ASoC
+3. List Current Apps - List all Apps on your ASoC
+4. List Assist Group - List all Assist Group on your ASoC
+5. Invite Users - Invite the users from ASoC_UserInviteList.txt
+6. Delete a selected set of Users by Role - Batch Delete a set of users by their role
+7. Delete a selected Asset Group - Batch delete a particular asset group
+8. Get Counts - Get application and user counts
 
 # Script Setup
 
@@ -25,7 +26,7 @@ $ASoC_API_Secret = 'EDIT ME'
 ```
 =======
 
-1.Provide API Key and secret in config.json:
+1. Provide API KEY and SECRET in **config.json**:
 ```
 {
     "API_KEY": "YOUR ASOC API KEY",
@@ -34,10 +35,9 @@ $ASoC_API_Secret = 'EDIT ME'
 }
 ```
 Note: If you are working with ASoC EU, change the BASEURL to "https://cloud.appscan.com/eu/api/V2"
->>>>>>> 59e67c7 (readme)
 
 <br>
-2.Point to the right Datacenter<br>
+2. Point to the right Datacenter<br>
 The following example is EU Datacenter<br>
 
 ```
