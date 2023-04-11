@@ -25,12 +25,12 @@ In order to use the script, there are some things you need to do.<br>
     "BASEURL": "https://cloud.appscan.com/api/V2"
 }
 ```
-*Note: If you are working with ASoC EU, change the BASEURL to 
-```"https://cloud.appscan.com/eu/api/V2"*```
+*Note: If you are working with ASoC EU, change the BASEURL to the following: *
+```https://cloud.appscan.com/eu/api/V2```
 
 # How to Invite users
 
-1.Put all the emails you want to invite in ASoC_UserInviteList.txt<br>
+1.Put all the emails you want to invite in **ASoC_UserInviteList.txt**<br>
 Make sure each line contains only 1 email address<br>
 For example:<br>
 
@@ -43,8 +43,8 @@ Afterwards, use Option 5 to invite users.
 
 # How to delete users
 
-Use option 6 to delete all users by role ID. 
+Use Option 6 to delete all users by role ID. 
 
 # How to delete Asset Groups
 
-Use option 7 to delete a selected asset group
+Use Option 7 to delete a selected asset group
