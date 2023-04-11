@@ -2,7 +2,7 @@
 This script is written by Antony Chiu<br>
 Modified by Kevin Chia. <br>
 <br>
-This Powershell script allows you to <br>
+This Powershell script allows you to perform the following functions on AppScan on Cloud (https://cloud.appscan.com):<br>
 <br>
 1. Check Current Token - Check your connection status with ASoC
 2. List Current Users - List all the users on your ASoC
