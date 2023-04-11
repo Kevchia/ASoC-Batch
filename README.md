@@ -9,19 +9,23 @@ This Powershell script allows you to <br>
 3.List Current Apps - List all Apps on your ASoC<br>
 4.List Assist Group - List all Assist Group on your ASoC<br>
 5.Invite Users - Invite the users from ASoC_UserInviteList.txt<br>
-6.Clean Up Workshop - Batch Delete the scans on specefic assist group<br>
-7.Get Counts  - Get application and user counts<br>
+6.Delete a selected set of Users by Role - Batch Delete a set of users by their role<br>
+7. Delete a selected Asset Group - Batch delete a particular asset group
+8. Get Counts  - Get application and user counts<br>
 
 # Script Setup
 
 In order to use the script, there are some things you need to do.<br>
-1.Provide API Key<br>
-You can get your API keys from ASoC Tools>API<br>
-Edit <br>
-```
-$ASoC_API_Key = 'EDIT ME'
-$ASoC_API_Secret = 'EDIT ME'
-```
+
+1.Provide API Key and secret in config.json:
+
+{
+    "API_KEY": "YOUR ASOC API KEY",
+    "API_SECRET": "YOUR ASOC API SECRET",
+    "BASEURL": "https://cloud.appscan.com/api/V2"
+}
+
+Note: If you are working with ASoC EU, change the BASEURL to "https://cloud.appscan.com/eu/api/V2"
 
 <br>
 2.Point to the right Datacenter<br>
