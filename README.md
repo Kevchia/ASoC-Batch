@@ -17,6 +17,7 @@ This Powershell script allows you to <br>
 
 In order to use the script, there are some things you need to do.<br>
 <<<<<<< HEAD
+<<<<<<< HEAD
 1.Provide API Key<br>
 You can get your API keys from ASoC Tools>API<br>
 Edit <br>
@@ -25,6 +26,8 @@ $ASoC_API_Key = 'EDIT ME'
 $ASoC_API_Secret = 'EDIT ME'
 ```
 =======
+=======
+>>>>>>> 047491023749a853873201a875ab7127e5891de3
 
 1. Provide API KEY and SECRET in **config.json**:
 ```
