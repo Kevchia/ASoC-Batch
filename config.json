@@ -1,0 +1,5 @@
+{
+    "API_KEY": "EDIT ME",
+    "API_SECRET": "EDIT ME",
+    "BASEURL": "https://cloud.appscan.com/api/V2"
+}
