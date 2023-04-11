@@ -16,18 +16,6 @@ This Powershell script allows you to <br>
 # Script Setup
 
 In order to use the script, there are some things you need to do.<br>
-<<<<<<< HEAD
-<<<<<<< HEAD
-1.Provide API Key<br>
-You can get your API keys from ASoC Tools>API<br>
-Edit <br>
-```
-$ASoC_API_Key = 'EDIT ME'
-$ASoC_API_Secret = 'EDIT ME'
-```
-=======
-=======
->>>>>>> 047491023749a853873201a875ab7127e5891de3
 
 1. Provide API KEY and SECRET in **config.json**:
 ```
@@ -37,7 +25,7 @@ $ASoC_API_Secret = 'EDIT ME'
     "BASEURL": "https://cloud.appscan.com/api/V2"
 }
 ```
-*Note: If you are working with ASoC EU, change the BASEURL to the following: *
+*Note: If you are working with ASoC EU, change the BASEURL to the following:*
 ```https://cloud.appscan.com/eu/api/V2```
 
 # How to Invite users
