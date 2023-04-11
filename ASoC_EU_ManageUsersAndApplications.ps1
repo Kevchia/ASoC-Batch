@@ -4,12 +4,18 @@
 #AppScan on Cloud REST API is available here:
 #https://cloud.appscan.com/eu/swagger/index.html
 
-#Required User supplied inputs
-$ASoC_API_Key = 'EDIT ME'
-$ASoC_API_Secret = 'EDIT ME'
 
-#EU Datacenter
-$baseURL = 'https://cloud.appscan.com/eu/api/V2'
+#Read config.json
+$configFile = Get-Content -Path ".\config.json" -Raw
+$configJson = ConvertFrom-Json -InputObject $configFile
+
+#Required User supplied inputs
+$ASoC_API_Key = $configJson.API_KEY
+$ASoC_API_Secret = $configJson.API_SECRET
+#test
+
+#Selecting the Datacenter
+$baseURL = $configJson.BASEURL
 
 #API will grab bearer token, please leave it blank
 $bearer_token =''
@@ -298,29 +304,15 @@ function Invite-Users{
         {
             $EmailInput = @($line)
             $inputBody = @{
-                "AssetGroupId"=$assetGroupId
+                "AssetGroupIds"=@($assetGroupId)
                 "RoleId"=$roleId
                 "Emails"=@($line)
             }
             
             $jsonInput = $inputBody | ConvertTo-Json
             
-            #$inputBody = "
-            #{
-                
-#                `"Emails`": [
-#                     `"$line`"
-#                     ]
-#                `"AssetGroupId`": `"$assetGroupId`",
-#                `"RoleId`": `"$roleId`"
-            
-#            }
- #           "
-
-            #$inputJson = $inputBody | ConvertTo-Json
-
             $params = @{
-                Uri         = "$baseURL/Account/Invite"
+                Uri         = "$baseURL/Account/InviteUsers"
                 Method      = 'POST'
                 Body        = $jsonInput
                 Headers = @{
@@ -330,125 +322,108 @@ function Invite-Users{
                 
             }
             
-            $output = Invoke-RestMethod @params
-            write-host "Updated line $lineNumber, with email $line, API output: $output"
+            $output = Invoke-WebRequest @params
+
+            If($output.StatusCode -eq 200){
+                Write-host "$lineNumber. Successfully invited user: $line"
+            }else{
+                Write-error "Failed to invite user $line. Status code: $($output.StatusCode), Status description: $($output.StatusDescription)"
+            }
+            
         }
     }
 }
 
-
-
-function Show-Menu
-{
-    
-    Clear-Host
-	if($bearer_token -eq $null)
-		{
-			Write-Host "ERROR CHECK API Token" -ForegroundColor Red
-			Write-Host "Q: Press 'Q' to quit."
-		}
-	else
-		{
-		Write-Host "ASOC Auth successful" -ForegroundColor Green
-		Write-Host "================ ASOC Autmoation ================"
-		Write-Host "1: Press '1' to Check Current Token."
-		Write-Host "2: Press '2' to List Current Users"
-		Write-Host "3: Press '3' to List Current Apps"
-		Write-Host "4: Press '4' to List Assist Group"
-		Write-Host "5: Press '5' to Invite Users" -ForegroundColor Green
-		Write-Host "6: Press '6' to Clean Up Workshop" -ForegroundColor Red
-		Write-Host "6: Press '7' to Get Counts"
-		Write-Host "Q: Press 'Q' to quit."
-		write-host""
-		write-host""
-		write-host""
-	}
-		
-   
-	
-	
-}
-
-function List-VMs
-{
-        Write-Host "Script Block to Display all the VMs"
-}
-function Delete-VMs
-{
-        Write-Host "Script Block to Delete VM"
-}
-
-do
-{
-    Show-Menu –Title 'My Menu'
-    $input = Read-Host "what do you want to do?"
-	write-host""
-    switch ($input)
-    {
-        '1' {               
-				Get-Token			
-            }
-        '2' {
-                Get-Users
-            }
-		'3' {
-                Get-Apps
-            }
-		'4' {
-                Get-assetgroup
-            }
-		'5' {
-				Write-Host 'Edit Invite-Users -assetGroupI Before Running This Script' -ForegroundColor Yellow
-				$title    = 'Confirm'
-				$question = 'Are you sure to INVITE Students from TXT List?'
-				$choices  = '&Yes', '&No'
-
-				$decision = $Host.UI.PromptForChoice($title, $question, $choices, 1)
-				if ($decision -eq 0) {
-					Write-Host 'Your choice is Yes.'
-					#INVITATION RELATED FUNCTIONS
-					#Retrive Assest Role ID From API Get Roles
-					#Student Role ID: fa39651a-b8b6-4094-ba29-b9ae94138d8f
-					
-					#Retrive Assest Group ID From API Get AssetGroups
-					#Asset Group ID for ASoC APAC July 27, 2022: f4afb1e6-a5dd-4c63-8636-3633637f833d
-					Invite-Users -assetGroupId "6121ed15-202e-47ac-b3cc-14df0573c815" -roleId "fa39651a-b8b6-4094-ba29-b9ae94138d8f" -userFileName "ASoC_UserInviteList.txt"
-				} else {
-					Write-Host 'Your choice is No.'
-					return
-				}
-				
-
-            }
-		'6' {
-                Write-Host 'Edit Delete-Apps -assetGroupNameWhereAppsWillBeDeleted Before Running This Script' -ForegroundColor Yellow
-				$title    = 'Confirm'
-				$question = 'Are you sure to DELETE Students?'
-				$choices  = '&Yes', '&No'
-
-				$decision = $Host.UI.PromptForChoice($title, $question, $choices, 1)
-				if ($decision -eq 0) {
-					Write-Host 'Your choice is Yes.'
-					#Edit Role Name
-					Delete-Users -roleName "Student"
-					#Edit Group Assest Name
-					Delete-Apps -assetGroupNameWhereAppsWillBeDeleted "AS_Innov_DAST_ASoC_NA_Oct13"
-				} else {
-					Write-Host 'Your choice is No.'
-					return
-				}
-				
-            }
-		'7' {
-               Get-Counts
-            }
-			
-        'q' {
-                 return
-            }
+function Get-AssetGroups{
+     
+     $params = @{
+        Uri         = "$baseURL/AssetGroups"
+        Method      = 'Get'
+        Headers = @{
+            'Content-Type' = 'application/json'
+            Authorization = "Bearer $bearer_token"
+        }
     }
-	write-host""
-    pause
-}
-until ($input -eq 'q')
+    $output = Invoke-RestMethod @params
 
+    return $output
+}
+
+function Print-AssetGroups{
+
+    $output = Get-AssetGroups
+    $AssetGroupId = ""
+    $AssetGroupName = ""
+
+    Write-Host
+    Write-Host "Here are the currently available Asset Groups:" -ForegroundColor Green
+    ForEach ($i in $output){
+        $AssetGroupName = $i.Name
+        $AssetGroupId = $i.Id
+        $Index = $($output.IndexOf($i))
+        Write-Host "[$Index] - NAME: $AssetGroupName - ID: $AssetGroupId"
+
+    }
+}
+
+function PromptUser-SelectAssetGroup{
+
+    $userSelectedAssetGroupName = ""
+    $userSelectedAssetGroupId = ""
+
+    $assetGroups = Get-AssetGroups
+    Print-AssetGroups
+    $validInput = $false
+    while($validInput -eq $false){
+        Write-Host "Select the asset Group you want to invite the user (Enter a number): " -NoNewline -ForegroundColor Yellow 
+        $choice = Read-Host
+        if ($choice -match '^\d+$' -and [int]$choice -ge 0 -and [int]$choice -le $assetGroups.Count-1){
+            $ValidInput = $true
+            $userSelectedAssetGroupName = $assetGroups[$choice].Name
+            $userSelectedAssetGroupId = $assetGroups[$choice].Id
+            
+
+            Write-Host "You selected:"
+            Write-Host "Asset Group Mame: $userSelectedAssetGroupName"
+            Write-Host "Asset Group ID: $userSelectedAssetGroupId"
+
+            
+        } else{
+            Write-Host "Invalid input, try again"
+        }
+    }
+
+}
+
+
+function Get-AllRoles{
+    #Get List of Apps
+    $params = @{
+       Uri         = "$baseURL/Roles"
+       Method      = 'Get'
+       Headers = @{
+           'Content-Type' = 'application/json'
+           Authorization = "Bearer $bearer_token"
+       }
+   }
+   $output = Invoke-RestMethod @params
+
+   return $output
+}
+
+function Print-AllRoles{
+
+   $output = Get-AllRoles
+   $roleId = ""
+   $roleName = ""
+
+   Write-Host
+   Write-Host "Here are the currently available roles:" -ForegroundColor Green
+   ForEach ($i in $output){
+       $roleName = $i.Name
+       $roleId = $i.Id
+       $Index = $($output.IndexOf($i))
+       Write-Host "[$Index] - NAME: $roleName - ID: $roleId"
+
+   }
+}

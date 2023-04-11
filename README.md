@@ -2,82 +2,49 @@
 This script is written by Antony Chiu<br>
 Modified by Kevin Chia. <br>
 <br>
-This Powershell script allows you to <br>
+This Powershell script allows you to perform the following functions on AppScan on Cloud (https://cloud.appscan.com):<br>
 <br>
-1.Check Current Token - Check your connection status with ASoC<br>
-2.List Current Users - List all the users on your ASoC<br>
-3.List Current Apps - List all Apps on your ASoC<br>
-4.List Assist Group - List all Assist Group on your ASoC<br>
-5.Invite Users - Invite the users from ASoC_UserInviteList.txt<br>
-6.Clean Up Workshop - Batch Delete the scans on specefic assist group<br>
-7.Get Counts  - Get application and user counts<br>
+1. Check Current Token - Check your connection status with ASoC
+2. List Current Users - List all the users on your ASoC
+3. List Current Apps - List all Apps on your ASoC
+4. List Assist Group - List all Assist Group on your ASoC
+5. Invite Users - Invite the users from ASoC_UserInviteList.txt
+6. Delete a selected set of Users by Role - Batch Delete a set of users by their role
+7. Delete a selected Asset Group - Batch delete a particular asset group
+8. Get Counts - Get application and user counts
 
 # Script Setup
 
 In order to use the script, there are some things you need to do.<br>
-1.Provide API Key<br>
-You can get your API keys from ASoC Tools>API<br>
-Edit <br>
-```
-$ASoC_API_Key = 'EDIT ME'
-$ASoC_API_Secret = 'EDIT ME'
-```
 
-<br>
-2.Point to the right Datacenter<br>
-The following example is EU Datacenter<br>
-
+1. Provide API KEY and SECRET in **config.json**:
 ```
-$baseURL = 'https://cloud.appscan.com/eu/api/V2'
+{
+    "API_KEY": "YOUR ASOC API KEY",
+    "API_SECRET": "YOUR ASOC API SECRET",
+    "BASEURL": "https://cloud.appscan.com/api/V2"
+}
 ```
-
-Base URL for US Datacenter <br>
-
-```
-https://cloud.appscan.com/api/V2
-```
-
+*Note: If you are working with ASoC EU, change the BASEURL to the following:*
+```https://cloud.appscan.com/eu/api/V2```
 
 # How to Invite users
 
-1.Put all the emails in ASoC_UserInviteList.txt<br>
-Nextline for each emails<br>
-Example:<br>
+1.Put all the emails you want to invite in **ASoC_UserInviteList.txt**<br>
+Make sure each line contains only 1 email address<br>
+For example:<br>
 
 ```
 JohnDoe@test.com
 JamesBond@test.com
 ```
 
+Afterwards, use **Option 5** to invite users. 
 
-2.Assign asset Groups (Line 415)<br>
-Enter your asset Group ID (Can retrieve from List Assist Group)<br>
+# How to delete users
 
-```
-Invite-Users -assetGroupId "6121ed15-202e-47ac-b3cc-14df0573c815" -roleId "fa39651a-b8b6-4094-ba29-b9ae94138d8f" -userFileName "ASoC_UserInviteList.txt"
-```
+Use **Option 6** to delete all users by role ID. 
 
-3.Assign user Group (Line 415)<br>
-Enter your RoleID (Can retrieve from ASoC)<br>
+# How to delete Asset Groups
 
-```
-Invite-Users -assetGroupId "6121ed15-202e-47ac-b3cc-14df0573c815" -roleId "fa39651a-b8b6-4094-ba29-b9ae94138d8f" -userFileName "ASoC_UserInviteList.txt"
-```
-# How to delete scans and users - clean workshop
-
-This function will delete all the scans in the specefic asset group and users
-
-
-1. Set Role Name (Line 433)<br>
-
-```
-Delete-Users -roleName "Student"
-``` 
-
-2.Set Asset Name (Line 435)<br>
-
-``` 
-Delete-Apps -assetGroupNameWhereAppsWillBeDeleted "AS_Innov_DAST_ASoC_NA_Oct13"
-```
-
-<b>Reminder: Clean Workshop function will delete the scans under the specefic asset and users!!!</b>
+Use **Option 7** to delete a selected asset group
