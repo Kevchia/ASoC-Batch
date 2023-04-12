@@ -28,7 +28,7 @@ In order to use the script, there are some things you need to do.<br>
 *Note: If you are working with ASoC EU, change the BASEURL to the following:*
 ```https://cloud.appscan.com/eu/api/V2```
 
-#How to use the script
+# How to use the script
 To run the script, use ASoC_MainMenu.ps1
 
 # How to Invite users
